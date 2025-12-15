@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proteins | JUPEB/A-Level Biology</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #006B7D;
+            --secondary: #00A9B5;
+            --accent: #FF6B9D;
+            --light: #E0F7FA;
+            --dark: #003D47;
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --text: #003D47;
+            --bg-light: #f8f9fa;
+            --card-bg: #ffffff;
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 0;
+            max-width: 100%;
+            margin: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Floating background elements */
+        .floating-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            color: var(--primary);
+            font-size: 24px;
+            animation: float 20s infinite linear;
+        }
+        
+        .floating-bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 169, 181, 0.1);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 8px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 169, 181, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 107, 157, 0.1) 0%, transparent 50%);
+            z-index: 0;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            padding: 0 10px;
+            word-wrap: break-word;
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            padding: 0 10px;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin: 25px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary);
+            position: relative;
+            font-size: 1.5rem;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--accent);
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 20px 0 12px;
+            font-size: 1.3rem;
+        }
+        
+        h4 {
+            color: var(--primary);
+            margin: 15px 0 8px;
+            font-size: 1.1rem;
+        }
+        
+        .content-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            padding: 25px 0;
+            width: 100%;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 4px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+        
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .intro-card {
+            background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .definition-box {
+            background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 12px 0;
+            border-left: 4px solid var(--success);
+        }
+        
+        .formula-box {
+            background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 12px 0;
+            text-align: center;
+            font-family: 'Cambria Math', serif;
+            font-size: 1rem;
+            border-left: 4px solid var(--primary);
+            overflow-x: auto;
+        }
+        
+        .example-box {
+            background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            border-left: 4px solid var(--secondary);
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+        
+        .concept-box {
+            background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 12px 0;
+            border-left: 4px solid var(--warning);
+        }
+        
+        .step-box {
+            background: linear-gradient(135deg, #E0F2F1, #B2DFDB);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 12px 0;
+            border-left: 4px solid #009688;
+        }
+        
+        .principle-box {
+            background: linear-gradient(135deg, #E8EAF6, #C5CAE9);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .diagram-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+        }
+        
+        .diagram {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            border-radius: 6px;
+            overflow: hidden;
+            font-size: 0.9rem;
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        th {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f5f5f5;
+        }
+        
+        tr:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            margin: 8px 5px;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #27ae60);
+        }
+        
+        .quiz-section {
+            background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 4px solid var(--secondary);
+            width: 100%;
+        }
+        
+        .quiz-instructions {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid var(--warning);
+        }
+        
+        .quiz-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            width: 100%;
+        }
+        
+        .timer {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+            color: var(--accent);
+            background: linear-gradient(135deg, #FFEBEE, #FFCDD2);
+            padding: 8px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .options {
+            margin-left: 0;
+        }
+        
+        .option {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        
+        .option:hover {
+            background-color: #e3f2fd;
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .option.selected {
+            background-color: #bbdefb;
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .option.correct {
+            background-color: #c8e6c9;
+            border-left: 3px solid var(--success);
+        }
+        
+        .option.incorrect {
+            background-color: #ffcdd2;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .results {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 4px solid var(--success);
+            width: 100%;
+        }
+        
+        .score {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--success);
+            margin: 12px 0;
+        }
+        
+        .feedback {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            text-align: left;
+        }
+        
+        .strength {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .improvement {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .homework {
+            background: linear-gradient(135deg, #FCE4EC, #F8BBD9);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 4px solid #E91E63;
+            width: 100%;
+        }
+        
+        .resource-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+            justify-content: center;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 40px;
+            border-top: 6px solid var(--accent);
+            width: 100%;
+        }
+        
+        .creator-link {
+            text-align: center;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+        
+        .creator-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .creator-link a:hover {
+            color: var(--accent);
+        }
+        
+        /* Tablet styles */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px;
+                padding: 0 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+            
+            h3 {
+                font-size: 1.4rem;
+            }
+            
+            .card {
+                padding: 25px;
+            }
+            
+            .content-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 25px;
+            }
+            
+            .wide-card {
+                grid-column: 1 / -1;
+            }
+            
+            table {
+                font-size: 1rem;
+                display: table;
+                overflow-x: visible;
+                white-space: normal;
+            }
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 992px) {
+            .container {
+                max-width: 960px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+            
+            .card {
+                padding: 25px;
+            }
+        }
+        
+        /* Large desktop styles */
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1140px;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+        
+        /* Small mobile adjustments */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+            
+            header {
+                padding: 15px 0;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .tagline {
+                font-size: 0.9rem;
+            }
+            
+            .card {
+                padding: 15px;
+            }
+            
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+                display: block;
+                width: 100%;
+                margin: 5px 0;
+            }
+            
+            .resource-links {
+                flex-direction: column;
+            }
+        }
+        
+        /* Prevent horizontal scrolling */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        /* Ensure all content fits within viewport */
+        img, table, .formula-box, .example-box {
+            max-width: 100%;
+        }
+        
+        /* Improve text readability on small screens */
+        p, li, td {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 767px) {
+            p, li, td {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating background elements -->
+    <div class="floating-bg" id="floatingBg"></div>
+    
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-dna"></i>
+            </div>
+            <h1>Proteins</h1>
+            <p class="tagline">Understanding the Building Blocks of Life</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="content-grid">
+            <section class="card intro-card wide-card">
+                <h2>Welcome to Proteins!</h2>
+                <p>This resource will explore the fascinating world of proteins - the fundamental building blocks of all living organisms. Get ready to learn about:</p>
+                <ul>
+                    <li>Proteins as biomolecules and their importance</li>
+                    <li>Amino acids - the monomers of proteins</li>
+                    <li>Peptide bond formation and characteristics</li>
+                    <li>Four levels of protein structure</li>
+                    <li>Functions of proteins in living organisms</li>
+                    <li>Protein denaturation and factors affecting it</li>
+                </ul>
+            </section>
+            
+            <section class="card wide-card">
+                <h2>I. Introduction to Proteins as Biomolecules</h2>
+                
+                <div class="definition-box">
+                    <p><strong>Proteins</strong> are large, complex biomolecules that play critical roles in the structure, function, and regulation of the body's tissues and organs.</p>
+                </div>
+                
+                <h3>Key Characteristics of Proteins:</h3>
+                <ol>
+                    <li>Proteins are polymers made up of amino acid monomers.</li>
+                    <li>They contain carbon, hydrogen, oxygen, nitrogen, and sometimes sulfur.</li>
+                    <li>Proteins have diverse functions including structural support, catalysis, transport, and defense.</li>
+                    <li>Each protein has a unique three-dimensional structure that determines its function.</li>
+                    <li>Proteins can be denatured by changes in temperature, pH, or chemical environment.</li>
+                </ol>
+                
+                <div class="concept-box">
+                    <p><strong>Biological Importance:</strong> Proteins are involved in virtually all cellular processes and are essential for life. They make up about 50% of the dry weight of most cells.</p>
+                </div>
+            </section>
+            
+            <section class="card wide-card">
+                <h2>II. Amino Acids - The Monomers</h2>
+                
+                <h3>A. Structure of Amino Acids</h3>
+                
+                <div class="step-box">
+                    <h4>General Structure</h4>
+                    <p>All amino acids have a central carbon atom (alpha carbon) bonded to:</p>
+                    <ul>
+                        <li>An amino group (-NH₂)</li>
+                        <li>A carboxyl group (-COOH)</li>
+                        <li>A hydrogen atom (-H)</li>
+                        <li>A variable side chain (R group)</li>
+                    </ul>
+                </div>
+                
+                <div class="diagram-box">
+                    <h4>Amino Acid Structure</h4>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Amino_acid_generic_structure.png/600px-Amino_acid_generic_structure.png" alt="Amino acid structure" class="diagram">
+                    <p>General structure of an amino acid</p>
+                </div>
+                
+                <h3>B. Classification of Amino Acids</h3>
+                
+                <div class="step-box">
+                    <h4>Based on R Group Properties</h4>
+                    <p>Amino acids can be classified into several categories based on the chemical properties of their R groups:</p>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Properties</th>
+                            <th>Examples</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nonpolar/Aliphatic</td>
+                            <td>Hydrophobic, non-reactive</td>
+                            <td>Glycine, Alanine, Valine</td>
+                        </tr>
+                        <tr>
+                            <td>Aromatic</td>
+                            <td>Contain aromatic rings</td>
+                            <td>Phenylalanine, Tyrosine, Tryptophan</td>
+                        </tr>
+                        <tr>
+                            <td>Polar/Uncharged</td>
+                            <td>Hydrophilic, form hydrogen bonds</td>
+                            <td>Serine, Threonine, Cysteine</td>
+                        </tr>
+                        <tr>
+                            <td>Positively Charged</td>
+                            <td>Basic, have amino groups</td>
+                            <td>Lysine, Arginine, Histidine</td>
+                        </tr>
+                        <tr>
+                            <td>Negatively Charged</td>
+                            <td>Acidic, have carboxyl groups</td>
+                            <td>Aspartic acid, Glutamic acid</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="diagram-box">
+                    <h4>The 20 Amino Acids</h4>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amino_Acids.svg/1200px-Amino_Acids.svg.png" alt="20 amino acids" class="diagram">
+                    <p>Structures of the 20 standard amino acids</p>
+                </div>
+                
+                <h3>C. Essential vs. Non-essential Amino Acids</h3>
+                
+                <div class="definition-box">
+                    <p><strong>Essential amino acids</strong> cannot be synthesized by the human body and must be obtained from the diet. <strong>Non-essential amino acids</strong> can be synthesized by the body.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Essential Amino Acids (9):</strong> Histidine, Isoleucine, Leucine, Lysine, Methionine, Phenylalanine, Threonine, Tryptophan, Valine</p>
+                    <p><strong>Non-essential Amino Acids (11):</strong> Alanine, Arginine, Asparagine, Aspartic acid, Cysteine, Glutamic acid, Glutamine, Glycine, Proline, Serine, Tyrosine</p>
+                </div>
+            </section>
+            
+            <section class="card wide-card">
+                <h2>III. Peptide Bond Formation and Characteristics</h2>
+                
+                <h3>A. Formation of Peptide Bonds</h3>
+                
+                <div class="definition-box">
+                    <p>A <strong>peptide bond</strong> is a covalent chemical bond formed between two amino acid molecules when the carboxyl group of one amino acid reacts with the amino group of another, releasing a molecule of water (H₂O).</p>
+                </div>
+                
+                <div class="diagram-box">
+                    <h4>Peptide Bond Formation</h4>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Peptide_bond_formation.svg/600px-Peptide_bond_formation.svg.png" alt="Peptide bond formation" class="diagram">
+                    <p>Formation of a peptide bond through dehydration synthesis</p>
+                </div>
+                
+                <p>This reaction is a <strong>condensation reaction</strong> (dehydration synthesis) because it releases a water molecule.</p>
+                
+                <h3>B. Characteristics of Peptide Bonds</h3>
+                
+                <div class="step-box">
+                    <h4>Key Properties</h4>
+                    <ul>
+                        <li>Peptide bonds are strong covalent bonds with partial double bond character.</li>
+                        <li>They are planar and rigid, restricting rotation around the bond.</li>
+                        <li>The peptide bond has a trans configuration in most cases, minimizing steric hindrance.</li>
+                        <li>Peptide bonds can be hydrolyzed by strong acids, bases, or specific enzymes called proteases.</li>
+                    </ul>
+                </div>
+                
+                <h3>C. Polypeptides and Proteins</h3>
+                
+                <div class="definition-box">
+                    <p>A <strong>polypeptide</strong> is a chain of amino acids linked by peptide bonds. A <strong>protein</strong> consists of one or more polypeptides folded into a specific three-dimensional structure.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Terminology:</strong></p>
+                    <ul>
+                        <li><strong>Dipeptide:</strong> 2 amino acids joined by 1 peptide bond</li>
+                        <li><strong>Tripeptide:</strong> 3 amino acids joined by 2 peptide bonds</li>
+                        <li><strong>Oligopeptide:</strong> 4-20 amino acids</li>
+                        <li><strong>Polypeptide:</strong> More than 20 amino acids</li>
+                        <li><strong>Protein:</strong> One or more polypeptides with a specific 3D structure</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section class="card wide-card">
+                <h2>IV. Protein Structure Levels</h2>
+                
+                <h3>A. Primary Structure</h3>
+                
+                <div class="definition-box">
+                    <p>The <strong>primary structure</strong> of a protein is the linear sequence of amino acids in the polypeptide chain, held together by peptide bonds.</p>
+                </div>
+                
+                <p>The primary structure is determined by the genetic code and dictates all higher levels of protein structure.</p>
+                
+                <h3>B. Secondary Structure</h3>
+                
+                <div class="definition-box">
+                    <p>The <strong>secondary structure</strong> refers to local folded structures that form within a polypeptide due to hydrogen bonding between atoms of the backbone.</p>
+                </div>
+                
+                <div class="step-box">
+                    <h4>Alpha-Helix (α-helix)</h4>
+                    <ul>
+                        <li>A coiled, spring-like structure stabilized by hydrogen bonds between every fourth amino acid.</li>
+                        <li>Hydrogen bonds form between the carbonyl oxygen of one amino acid and the amino hydrogen of another.</li>
+                        <li>Side chains extend outward from the helix.</li>
+                        <li>Common in fibrous proteins like keratin and in many globular proteins.</li>
+                    </ul>
+                </div>
+                
+                <div class="step-box">
+                    <h4>Beta-Pleated Sheet (β-sheet)</h4>
+                    <ul>
+                        <li>Formed by adjacent regions of the polypeptide chain lying side by side.</li>
+                        <li>Stabilized by hydrogen bonds between carbonyl and amino groups of adjacent strands.</li>
+                        <li>Can be parallel (same direction) or antiparallel (opposite directions).</li>
+                        <li>Found in silk fibroin and many globular proteins.</li>
+                    </ul>
+                </div>
+                
+                <h3>C. Tertiary Structure</h3>
+                
+                <div class="definition-box">
+                    <p>The <strong>tertiary structure</strong> is the overall three-dimensional shape of a single polypeptide chain, resulting from interactions between side chains (R groups) of amino acids.</p>
+                </div>
+                
+                <p>Stabilizing interactions include:</p>
+                <ul>
+                    <li><strong>Hydrophobic interactions:</strong> Nonpolar side chains cluster together away from water.</li>
+                    <li><strong>Hydrogen bonds:</strong> Between polar side chains.</li>
+                    <li><strong>Ionic bonds:</strong> Between positively and negatively charged side chains.</li>
+                    <li><strong>Disulfide bridges:</strong> Covalent bonds between cysteine residues.</li>
+                    <li><strong>Van der Waals forces:</strong> Weak attractions between adjacent atoms.</li>
+                </ul>
+                
+                <h3>D. Quaternary Structure</h3>
+                
+                <div class="definition-box">
+                    <p>The <strong>quaternary structure</strong> is the arrangement of multiple polypeptide chains (subunits) in a protein complex.</p>
+                </div>
+                
+                <p>Not all proteins have quaternary structure - only those with multiple polypeptide chains.</p>
+                
+                <div class="example-box">
+                    <p><strong>Examples:</strong></p>
+                    <ul>
+                        <li><strong>Hemoglobin:</strong> 4 subunits (2 alpha chains, 2 beta chains)</li>
+                        <li><strong>Collagen:</strong> 3 polypeptide chains twisted into a triple helix</li>
+                        <li><strong>Antibodies:</strong> 4 polypeptide chains (2 heavy, 2 light)</li>
+                    </ul>
+                </div>
+                
+                <div class="diagram-box">
+                    <h4>Protein Structure Levels</h4>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Protein_structure.png/800px-Protein_structure.png" alt="Protein structure levels" class="diagram">
+                    <p>Primary, secondary, tertiary, and quaternary structures of proteins</p>
+                </div>
+            </section>
+            
+            <section class="card wide-card">
+                <h2>V. Functions of Proteins in Living Organisms</h2>
+                
+                <h3>A. Structural Proteins</h3>
+                
+                <div class="definition-box">
+                    <p><strong>Structural proteins</strong> provide support and shape to cells, tissues, and organs.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Examples:</strong></p>
+                    <ul>
+                        <li><strong>Collagen:</strong> In connective tissues, tendons, and bones</li>
+                        <li><strong>Keratin:</strong> In hair, nails, and skin</li>
+                        <li><strong>Elastin:</strong> In elastic tissues like blood vessels</li>
+                        <li><strong>Actin and Myosin:</strong> In muscle contraction</li>
+                    </ul>
+                </div>
+                
+                <h3>B. Enzymes</h3>
+                
+                <div class="definition-box">
+                    <p><strong>Enzymes</strong> are biological catalysts that speed up chemical reactions in cells.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Examples:</strong></p>
+                    <ul>
+                        <li><strong>Amylase:</strong> Breaks down starch</li>
+                        <li><strong>Pepsin:</strong> Digests proteins in the stomach</li>
+                        <li><strong>DNA polymerase:</strong> Synthesizes DNA</li>
+                        <li><strong>Catalase:</strong> Breaks down hydrogen peroxide</li>
+                    </ul>
+                </div>
+                
+                <h3>C. Transport Proteins</h3>
+                
+                <div class="definition-box">
+                    <p><strong>Transport proteins</strong> carry substances throughout the body or across cell membranes.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Examples:</strong></p>
+                    <ul>
+                        <li><strong>Hemoglobin:</strong> Transports oxygen in blood</li>
+                        <li><strong>Serum albumin:</strong> Transports fatty acids in blood</li>
+                        <li><strong>Membrane transporters:</strong> Move ions and molecules across cell membranes</li>
+                    </ul>
+                </div>
+                
+                <h3>D. Defense Proteins</h3>
+                
+                <div class="definition-box">
+                    <p><strong>Defense proteins</strong> protect the body against disease and foreign invaders.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Examples:</strong></p>
+                    <ul>
+                        <li><strong>Antibodies (Immunoglobulins):</strong> Recognize and neutralize pathogens</li>
+                        <li><strong>Fibrinogen:</strong> Forms blood clots to prevent bleeding</li>
+                        <li><strong>Complement proteins:</strong> Part of the immune system</li>
+                    </ul>
+                </div>
+                
+                <h3>E. Regulatory Proteins</h3>
+                
+                <div class="definition-box">
+                    <p><strong>Regulatory proteins</strong> control cellular processes and physiological functions.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Examples:</strong></p>
+                    <ul>
+                        <li><strong>Hormones:</strong> Insulin, glucagon, growth hormone</li>
+                        <li><strong>Transcription factors:</strong> Regulate gene expression</li>
+                        <li><strong>Receptor proteins:</strong> Receive chemical signals</li>
+                    </ul>
+                </div>
+                
+                <h3>F. Other Functions</h3>
+                
+                <div class="example-box">
+                    <p><strong>Additional protein functions:</strong></p>
+                    <ul>
+                        <li><strong>Storage:</strong> Ferritin stores iron, casein stores amino acids in milk</li>
+                        <li><strong>Motor proteins:</strong> Myosin, kinesin, dynein for movement</li>
+                        <li><strong>Signaling:</strong> Cytokines, growth factors</li>
+                        <li><strong>Toxins:</strong> Snake venoms, bacterial toxins</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section class="card wide-card">
+                <h2>VI. Protein Denaturation and Factors Affecting It</h2>
+                
+                <h3>A. Protein Denaturation</h3>
+                
+                <div class="definition-box">
+                    <p><strong>Denaturation</strong> is the process in which a protein loses its native three-dimensional structure, resulting in the loss of its biological function.</p>
+                </div>
+                
+                <p>Denaturation involves the disruption of:</p>
+                <ul>
+                    <li>Secondary structure (breaking hydrogen bonds)</li>
+                    <li>Tertiary structure (disrupting interactions between R groups)</li>
+                    <li>Quaternary structure (separating subunits)</li>
+                </ul>
+                
+                <div class="concept-box">
+                    <p><strong>Important Note:</strong> Denaturation affects the protein's 3D structure but does not break peptide bonds. The primary structure remains intact.</p>
+                </div>
+                
+                <h3>B. Factors Causing Denaturation</h3>
+                
+                <div class="step-box">
+                    <h4>Temperature</h4>
+                    <p>High temperatures increase molecular motion, disrupting weak interactions that stabilize protein structure.</p>
+                    <p><strong>Example:</strong> Cooking an egg causes the egg white proteins to denature and coagulate.</p>
+                </div>
+                
+                <div class="step-box">
+                    <h4>pH Changes</h4>
+                    <p>Extreme pH levels alter the charge on amino acid side chains, disrupting ionic bonds and hydrogen bonding.</p>
+                    <p><strong>Example:</strong> Stomach acid (low pH) denatures dietary proteins, making them easier to digest.</p>
+                </div>
+                
+                <div class="step-box">
+                    <h4>Organic Solvents</h4>
+                    <p>Solvents like alcohol and acetone disrupt hydrophobic interactions by interacting with nonpolar R groups.</p>
+                    <p><strong>Example:</strong> Alcohol is used as a disinfectant because it denatures bacterial proteins.</p>
+                </div>
+                
+                <div class="step-box">
+                    <h4>Heavy Metal Ions</h4>
+                    <p>Metal ions like lead, mercury, and silver can bind to protein functional groups, disrupting structure.</p>
+                    <p><strong>Example:</strong> Mercury poisoning occurs because mercury ions denature essential enzymes.</p>
+                </div>
+                
+                <div class="step-box">
+                    <h4>Mechanical Agitation</h4>
+                    <p>Vigorous shaking or stirring can disrupt protein structure.</p>
+                    <p><strong>Example:</strong> Whipping egg whites introduces air bubbles and denatures proteins, forming a foam.</p>
+                </div>
+                
+                <h3>C. Renaturation</h3>
+                
+                <div class="definition-box">
+                    <p><strong>Renaturation</strong> is the process by which a denatured protein regains its native structure and function when returned to normal conditions.</p>
+                </div>
+                
+                <p>Not all proteins can renature. Some denaturation is irreversible, especially when it involves breaking covalent bonds or extensive aggregation.</p>
+            </section>
+            
+            <section class="card">
+                <h2>Practice Problems ✍️</h2>
+                
+                <div class="example-box">
+                    <p><strong>Problem 1:</strong> Draw the general structure of an amino acid and label all its components.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Problem 2:</strong> Explain the difference between essential and non-essential amino acids, giving three examples of each.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Problem 3:</strong> Describe how a peptide bond forms between two amino acids. What type of reaction is this?</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Problem 4:</strong> Compare and contrast the alpha-helix and beta-pleated sheet structures in proteins.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Problem 5:</strong> List four factors that can cause protein denaturation and explain how each affects protein structure.</p>
+                </div>
+                
+                <h3>Solutions</h3>
+                
+                <div class="example-box">
+                    <p><strong>Solution 1:</strong></p>
+                    <p>An amino acid has a central carbon atom (alpha carbon) bonded to:</p>
+                    <ul>
+                        <li>An amino group (-NH₂)</li>
+                        <li>A carboxyl group (-COOH)</li>
+                        <li>A hydrogen atom (-H)</li>
+                        <li>A variable side chain (R group)</li>
+                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Solution 2:</strong></p>
+                    <p><strong>Essential amino acids</strong> cannot be synthesized by the body and must be obtained from the diet. Examples: Histidine, Isoleucine, Leucine.</p>
+                    <p><strong>Non-essential amino acids</strong> can be synthesized by the body. Examples: Alanine, Aspartic acid, Serine.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Solution 3:</strong></p>
+                    <p>A peptide bond forms between the carboxyl group of one amino acid and the amino group of another amino acid, with the release of a water molecule. This is a condensation reaction (dehydration synthesis).</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Solution 4:</strong></p>
+                    <p><strong>Alpha-helix:</strong> Coiled, spring-like structure with hydrogen bonds between every fourth amino acid; side chains extend outward.</p>
+                    <p><strong>Beta-pleated sheet:</strong> Formed by adjacent regions lying side by side; hydrogen bonds form between carbonyl and amino groups of adjacent strands; can be parallel or antiparallel.</p>
+                    <p><strong>Both:</strong> Secondary structures stabilized by hydrogen bonds between backbone atoms.</p>
+                </div>
+                
+                <div class="example-box">
+                    <p><strong>Solution 5:</strong></p>
+                    <ul>
+                        <li><strong>Temperature:</strong> High temperatures increase molecular motion, disrupting weak interactions.</li>
+                        <li><strong>pH changes:</strong> Extreme pH alters charges on side chains, disrupting ionic bonds.</li>
+                        <li><strong>Organic solvents:</strong> Disrupt hydrophobic interactions by interacting with nonpolar R groups.</li>
+                        <li><strong>Heavy metal ions:</strong> Bind to functional groups, disrupting structure.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section class="card">
+                <h2>Key Concepts Recap</h2>
+                
+                <div class="concept-box">
+                    <h3>Amino Acids</h3>
+                    <p>Building blocks of proteins with amino group, carboxyl group, hydrogen, and R group</p>
+                </div>
+                
+                <div class="concept-box">
+                    <h3>Peptide Bonds</h3>
+                    <p>Covalent bonds formed by condensation reactions between amino acids</p>
+                </div>
+                
+                <div class="concept-box">
+                    <h3>Protein Structure Levels</h3>
+                    <p>Primary → Secondary → Tertiary → Quaternary</p>
+                </div>
+                
+                <div class="concept-box">
+                    <h3>Secondary Structures</h3>
+                    <p>Alpha-helix and beta-pleated sheets stabilized by hydrogen bonds</p>
+                </div>
+                
+                <div class="concept-box">
+                    <h3>Protein Functions</h3>
+                    <p>Structural, enzymatic, transport, defense, regulatory, storage, motor</p>
+                </div>
+                
+                <div class="concept-box">
+                    <h3>Denaturation</h3>
+                    <p>Loss of protein structure and function due to temperature, pH, chemicals</p>
+                </div>
+            </section>
+            
+            <section class="card wide-card">
+                <h2>Learning Resources</h2>
+                <p>Enhance your understanding with these resources:</p>
+                
+                <div class="resource-links">
+                    <a href="https://youtu.be/9ssCKw-7OvQ?si=fPKhxTlhvGODodWn" class="btn" target="_blank">
+                        <i class="fab fa-youtube"></i> Proteins Video 1
+                    </a>
+                    <a href="https://youtu.be/hok2hyED9go?si=vh8k2E6dpdTwdvBj" class="btn" target="_blank">
+                        <i class="fab fa-youtube"></i> Proteins Video 2
+                    </a>
+                </div>
+                
+                <div class="creator-link">
+                    <p>Tutor: Kennis | Tutorial: Toscana | Contact: +234 803 933 1829 | Year: 2025</p>
+                    <p>Page designed by <a href="https://wa.me/qr/5XXPE2NTKQGSO1" target="_blank">KenStack</a></p>
+                </div>
+            </section>
+        </div>
+        
+        <section class="quiz-section wide-card">
+            <h2>Quiz Time! 🧠</h2>
+            <p>Test your knowledge with 30 questions about Proteins!</p>
+            
+            <div class="quiz-instructions">
+                <h3><i class="fas fa-info-circle"></i> Quiz Instructions</h3>
+                <p><strong>Topic:</strong> Proteins</p>
+                <p><strong>Duration:</strong> 25 minutes ⏱️</p>
+                <p><strong>Questions:</strong> 30 multiple-choice questions</p>
+                <p>After submission, you'll receive detailed feedback with your score, percentage, and personalized analysis.</p>
+                <p><strong>Remember:</strong> This is a learning tool to help you identify strengths and areas for improvement.</p>
+            </div>
+            
+            <button id="startQuiz" class="btn">
+                <i class="fas fa-play"></i> Start Quiz Now
+            </button>
+            
+            <div id="quizContainer" class="quiz-container hidden">
+                <div class="timer" id="timer">25:00</div>
+                
+                <div id="questions">
+                    <!-- Questions will be inserted here by JavaScript -->
+                </div>
+                
+                <button id="submitQuiz" class="btn btn-success">
+                    <i class="fas fa-paper-plane"></i> Submit Quiz
+                </button>
+            </div>
+            
+            <div id="results" class="results hidden">
+                <!-- Results will be displayed here -->
+            </div>
+        </section>
+        
+        <section class="homework wide-card">
+            <h2>Homework Assignment</h2>
+            <ul>
+                <li>🎯 Draw all the 20 amino acid structures</li>
+                <li>🎯 Study the classification of amino acids based on their R groups</li>
+                <li>🎯 Understand peptide bond formation and characteristics</li>
+                <li>🎯 Review the four levels of protein structure with examples</li>
+                <li>🎯 Complete the quiz and review any incorrect answers</li>
+            </ul>
+        </section>
+        
+        <section class="card wide-card">
+            <h2>End of Class</h2>
+            <p>Excellent work today! 👏</p>
+            <p>You've explored the fascinating world of proteins - the building blocks of life.</p>
+            <p>Keep exploring the amazing world of biochemistry! 🌟</p>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Proteins Learning Resource &copy; 2025</p>
+            <p>Designed for JUPEB/A-Level Biology Students</p>
+        </div>
+    </footer>
+
+    <script>
+        // Create floating background elements
+        function createFloatingElements() {
+            const floatingBg = document.getElementById('floatingBg');
+            const biologyIcons = [
+                'fa-dna', 'fa-microscope', 'fa-flask', 'fa-vial', 
+                'fa-seedling', 'fa-leaf', 'fa-bacteria', 'fa-virus',
+                'fa-stethoscope', 'fa-prescription-bottle', 'fa-heartbeat', 'fa-brain'
+            ];
+            
+            // Create floating icons
+            for (let i = 0; i < 20; i++) {
+                const icon = document.createElement('i');
+                icon.className = `floating-element fas ${biologyIcons[Math.floor(Math.random() * biologyIcons.length)]}`;
+                icon.style.left = `${Math.random() * 100}%`;
+                icon.style.animationDelay = `${Math.random() * 20}s`;
+                icon.style.fontSize = `${Math.random() * 20 + 15}px`;
+                floatingBg.appendChild(icon);
+            }
+            
+            // Create floating bubbles
+            for (let i = 0; i < 15; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'floating-bubble';
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.animationDelay = `${Math.random() * 15}s`;
+                bubble.style.width = `${Math.random() * 40 + 10}px`;
+                bubble.style.height = bubble.style.width;
+                floatingBg.appendChild(bubble);
+            }
+        }
+        
+        // Initialize floating elements
+        createFloatingElements();
+
+        // Quiz questions array (30 questions)
+        const quizQuestions = [
+            {
+                question: "What are the monomers that make up proteins?",
+                options: [
+                    "Nucleotides",
+                    "Monosaccharides",
+                    "Amino acids",
+                    "Fatty acids"
+                ],
+                correct: 2,
+                explanation: "Amino acids are the monomers that join together to form proteins through peptide bonds."
+            },
+            {
+                question: "Which of the following elements is always found in proteins but not in carbohydrates or lipids?",
+                options: [
+                    "Carbon",
+                    "Hydrogen",
+                    "Nitrogen",
+                    "Oxygen"
+                ],
+                correct: 2,
+                explanation: "Nitrogen is always present in proteins (in the amino group) but not necessarily in carbohydrates or lipids."
+            },
+            {
+                question: "What type of bond joins amino acids together in a protein?",
+                options: [
+                    "Glycosidic bond",
+                    "Ester bond",
+                    "Peptide bond",
+                    "Hydrogen bond"
+                ],
+                correct: 2,
+                explanation: "Amino acids are joined together by peptide bonds, which form between the carboxyl group of one amino acid and the amino group of another."
+            },
+            {
+                question: "How many different amino acids are used to make proteins in living organisms?",
+                options: [
+                    "10",
+                    "20",
+                    "30",
+                    "64"
+                ],
+                correct: 1,
+                explanation: "There are 20 different amino acids that are used to make proteins in living organisms."
+            },
+            {
+                question: "Which level of protein structure refers to the linear sequence of amino acids?",
+                options: [
+                    "Primary structure",
+                    "Secondary structure",
+                    "Tertiary structure",
+                    "Quaternary structure"
+                ],
+                correct: 0,
+                explanation: "The primary structure is the linear sequence of amino acids in a polypeptide chain."
+            },
+            {
+                question: "What stabilizes the alpha-helix structure in proteins?",
+                options: [
+                    "Disulfide bonds",
+                    "Hydrogen bonds",
+                    "Ionic bonds",
+                    "Hydrophobic interactions"
+                ],
+                correct: 1,
+                explanation: "The alpha-helix is stabilized by hydrogen bonds between the carbonyl oxygen of one amino acid and the amino hydrogen of another amino acid four residues away."
+            },
+            {
+                question: "Which of the following is an example of a protein with quaternary structure?",
+                options: [
+                    "Myoglobin",
+                    "Ribonuclease",
+                    "Hemoglobin",
+                    "Lysozyme"
+                ],
+                correct: 2,
+                explanation: "Hemoglobin has quaternary structure as it consists of four polypeptide chains (subunits)."
+            },
+            {
+                question: "What happens when a protein is denatured?",
+                options: [
+                    "It loses its primary structure",
+                    "It gains new functions",
+                    "It loses its three-dimensional structure",
+                    "It breaks down into individual amino acids"
+                ],
+                correct: 2,
+                explanation: "Denaturation causes a protein to lose its three-dimensional structure, which leads to loss of function, but the primary structure (amino acid sequence) remains intact."
+            },
+            {
+                question: "Which of these amino acids has a hydrophobic (nonpolar) side chain?",
+                options: [
+                    "Glutamic acid",
+                    "Lysine",
+                    "Valine",
+                    "Serine"
+                ],
+                correct: 2,
+                explanation: "Valine has a hydrophobic side chain, while glutamic acid and lysine are charged, and serine is polar."
+            },
+            {
+                question: "What type of reaction forms a peptide bond?",
+                options: [
+                    "Hydrolysis",
+                    "Oxidation",
+                    "Condensation",
+                    "Reduction"
+                ],
+                correct: 2,
+                explanation: "Peptide bonds form through condensation reactions, which release a water molecule."
+            },
+            {
+                question: "Which protein structure level involves interactions between multiple polypeptide chains?",
+                options: [
+                    "Primary structure",
+                    "Secondary structure",
+                    "Tertiary structure",
+                    "Quaternary structure"
+                ],
+                correct: 3,
+                explanation: "Quaternary structure involves the arrangement of multiple polypeptide chains (subunits) in a protein complex."
+            },
+            {
+                question: "Which of the following is NOT a function of proteins?",
+                options: [
+                    "Enzymatic catalysis",
+                    "Energy storage",
+                    "Structural support",
+                    "Transport of molecules"
+                ],
+                correct: 1,
+                explanation: "While proteins can be broken down for energy, their primary function is not energy storage - that's the main role of lipids and carbohydrates."
+            },
+            {
+                question: "What determines the primary structure of a protein?",
+                options: [
+                    "Hydrogen bonding",
+                    "The genetic code",
+                    "Environmental conditions",
+                    "pH of the solution"
+                ],
+                correct: 1,
+                explanation: "The primary structure (amino acid sequence) is determined by the genetic code in DNA."
+            },
+            {
+                question: "Which amino acid is capable of forming disulfide bonds?",
+                options: [
+                    "Cysteine",
+                    "Methionine",
+                    "Serine",
+                    "Threonine"
+                ],
+                correct: 0,
+                explanation: "Cysteine contains a thiol group that can form disulfide bonds with other cysteine residues."
+            },
+            {
+                question: "What is the term for amino acids that cannot be synthesized by the human body and must be obtained from the diet?",
+                options: [
+                    "Non-essential amino acids",
+                    "Essential amino acids",
+                    "Conditionally essential amino acids",
+                    "Dispensable amino acids"
+                ],
+                correct: 1,
+                explanation: "Essential amino acids cannot be synthesized by the human body and must be obtained from the diet."
+            },
+            {
+                question: "Which of these is an example of a fibrous protein?",
+                options: [
+                    "Hemoglobin",
+                    "Enzymes",
+                    "Antibodies",
+                    "Collagen"
+                ],
+                correct: 3,
+                explanation: "Collagen is a fibrous protein that provides structural support, while the others are globular proteins."
+            },
+            {
+                question: "What type of structure is the beta-pleated sheet?",
+                options: [
+                    "Primary structure",
+                    "Secondary structure",
+                    "Tertiary structure",
+                    "Quaternary structure"
+                ],
+                correct: 1,
+                explanation: "The beta-pleated sheet is a type of secondary structure in proteins."
+            },
+            {
+                question: "Which factor does NOT typically cause protein denaturation?",
+                options: [
+                    "High temperature",
+                    "Extreme pH",
+                    "Low salt concentration",
+                    "Organic solvents"
+                ],
+                correct: 2,
+                explanation: "Low salt concentration typically does not denature proteins; in fact, very high salt concentrations can cause denaturation through salting out."
+            },
+            {
+                question: "What is the role of chaperone proteins?",
+                options: [
+                    "Speed up chemical reactions",
+                    "Help other proteins fold correctly",
+                    "Break down damaged proteins",
+                    "Transport proteins within the cell"
+                ],
+                correct: 1,
+                explanation: "Chaperone proteins assist other proteins in achieving their proper three-dimensional structure."
+            },
+            {
+                question: "Which amino acid has an aromatic side chain?",
+                options: [
+                    "Alanine",
+                    "Phenylalanine",
+                    "Aspartic acid",
+                    "Lysine"
+                ],
+                correct: 1,
+                explanation: "Phenylalanine has an aromatic (benzene ring) side chain."
+            },
+            {
+                question: "What is the term for a chain of amino acids linked by peptide bonds?",
+                options: [
+                    "Polysaccharide",
+                    "Polynucleotide",
+                    "Polypeptide",
+                    "Polymerase"
+                ],
+                correct: 2,
+                explanation: "A chain of amino acids linked by peptide bonds is called a polypeptide."
+            },
+            {
+                question: "Which level of protein structure is primarily determined by hydrogen bonding between backbone atoms?",
+                options: [
+                    "Primary structure",
+                    "Secondary structure",
+                    "Tertiary structure",
+                    "Quaternary structure"
+                ],
+                correct: 1,
+                explanation: "Secondary structure (alpha-helices and beta-sheets) is primarily stabilized by hydrogen bonds between atoms of the polypeptide backbone."
+            },
+            {
+                question: "What is the main function of enzymes?",
+                options: [
+                    "Structural support",
+                    "Catalyzing biochemical reactions",
+                    "Transporting oxygen",
+                    "Immune defense"
+                ],
+                correct: 1,
+                explanation: "Enzymes are biological catalysts that speed up biochemical reactions."
+            },
+            {
+                question: "Which of these is a globular protein?",
+                options: [
+                    "Keratin",
+                    "Collagen",
+                    "Myosin",
+                    "Hemoglobin"
+                ],
+                correct: 3,
+                explanation: "Hemoglobin is a globular protein, while keratin, collagen, and myosin are fibrous proteins."
+            },
+            {
+                question: "What type of interaction stabilizes the tertiary structure of proteins?",
+                options: [
+                    "Peptide bonds only",
+                    "Hydrogen bonds only",
+                    "Various interactions including hydrophobic interactions and disulfide bonds",
+                    "Only ionic bonds"
+                ],
+                correct: 2,
+                explanation: "Tertiary structure is stabilized by various interactions including hydrophobic interactions, hydrogen bonds, ionic bonds, and disulfide bonds."
+            },
+            {
+                question: "Which amino acid is negatively charged at physiological pH?",
+                options: [
+                    "Lysine",
+                    "Arginine",
+                    "Aspartic acid",
+                    "Histidine"
+                ],
+                correct: 2,
+                explanation: "Aspartic acid has a carboxyl group in its side chain that is negatively charged at physiological pH."
+            },
+            {
+                question: "What is the term for proteins that assist in the proper folding of other proteins?",
+                options: [
+                    "Enzymes",
+                    "Chaperonins",
+                    "Prions",
+                    "Antibodies"
+                ],
+                correct: 1,
+                explanation: "Chaperonins are proteins that assist in the proper folding of other proteins."
+            },
+            {
+                question: "Which of these is NOT a factor that can cause protein denaturation?",
+                options: [
+                    "Heating",
+                    "Strong acids or bases",
+                    "Heavy metal ions",
+                    "Low temperature"
+                ],
+                correct: 3,
+                explanation: "Low temperature typically does not denature proteins; in fact, it often helps preserve protein structure."
+            },
+            {
+                question: "What is the primary structure of a protein?",
+                options: [
+                    "The 3D shape of the protein",
+                    "The sequence of amino acids",
+                    "The arrangement of multiple subunits",
+                    "The local folding patterns"
+                ],
+                correct: 1,
+                explanation: "The primary structure is the linear sequence of amino acids in a polypeptide chain."
+            },
+            {
+                question: "Which protein is responsible for oxygen transport in mammals?",
+                options: [
+                    "Myoglobin",
+                    "Hemoglobin",
+                    "Collagen",
+                    "Keratin"
+                ],
+                correct: 1,
+                explanation: "Hemoglobin is the protein responsible for oxygen transport in the blood of mammals."
+            }
+        ];
+
+        // Quiz functionality
+        document.getElementById('startQuiz').addEventListener('click', startQuiz);
+        document.getElementById('submitQuiz').addEventListener('click', submitQuiz);
+
+        let timeLeft = 25 * 60; // 25 minutes in seconds
+        let timerInterval;
+        let userAnswers = [];
+
+        function startQuiz() {
+            document.getElementById('startQuiz').classList.add('hidden');
+            document.getElementById('quizContainer').classList.remove('hidden');
+            
+            // Display questions
+            const questionsContainer = document.getElementById('questions');
+            quizQuestions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `
+                    <h3>Question ${index + 1}</h3>
+                    <p>${q.question}</p>
+                    <div class="options">
+                        ${q.options.map((option, optIndex) => `
+                            <div class="option" data-question="${index}" data-option="${optIndex}">
+                                ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                questionsContainer.appendChild(questionDiv);
+            });
+
+            // Add event listeners to options
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', selectOption);
+            });
+
+            // Start timer
+            timerInterval = setInterval(updateTimer, 1000);
+            
+            // Initialize user answers array
+            userAnswers = new Array(quizQuestions.length).fill(-1);
+        }
+
+        function selectOption(e) {
+            const questionIndex = parseInt(e.target.getAttribute('data-question'));
+            const optionIndex = parseInt(e.target.getAttribute('data-option'));
+            
+            // Remove selected class from all options in this question
+            const options = document.querySelectorAll(`.option[data-question="${questionIndex}"]`);
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selected class to clicked option
+            e.target.classList.add('selected');
+            
+            // Store user's answer
+            userAnswers[questionIndex] = optionIndex;
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                submitQuiz();
+            }
+        }
+
+        function submitQuiz() {
+            clearInterval(timerInterval);
+            
+            // Calculate score
+            let correctCount = 0;
+            quizQuestions.forEach((q, index) => {
+                if (userAnswers[index] === q.correct) {
+                    correctCount++;
+                }
+            });
+            
+            const score = correctCount;
+            const percentage = Math.round((correctCount / quizQuestions.length) * 100);
+            
+            // Display results
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.classList.remove('hidden');
+            
+            // Generate feedback
+            let strengths = [];
+            let improvements = [];
+            
+            // Analyze performance by category
+            let aminoAcidsCorrect = 0, aminoAcidsTotal = 0;
+            let structureCorrect = 0, structureTotal = 0;
+            let functionsCorrect = 0, functionsTotal = 0;
+            let denaturationCorrect = 0, denaturationTotal = 0;
+            
+            quizQuestions.forEach((q, index) => {
+                // Categorize questions
+                const questionText = q.question.toLowerCase();
+                if (questionText.includes("amino acid") || questionText.includes("monomer") || questionText.includes("peptide bond")) {
+                    aminoAcidsTotal++;
+                    if (userAnswers[index] === q.correct) aminoAcidsCorrect++;
+                } else if (questionText.includes("structure") || questionText.includes("primary") || questionText.includes("secondary") || questionText.includes("tertiary") || questionText.includes("quaternary")) {
+                    structureTotal++;
+                    if (userAnswers[index] === q.correct) structureCorrect++;
+                } else if (questionText.includes("function") || questionText.includes("enzyme") || questionText.includes("transport") || questionText.includes("defense")) {
+                    functionsTotal++;
+                    if (userAnswers[index] === q.correct) functionsCorrect++;
+                } else if (questionText.includes("denaturation") || questionText.includes("denature")) {
+                    denaturationTotal++;
+                    if (userAnswers[index] === q.correct) denaturationCorrect++;
+                }
+            });
+            
+            // Determine strengths and areas for improvement
+            if (aminoAcidsTotal > 0 && aminoAcidsCorrect / aminoAcidsTotal >= 0.7) strengths.push("understanding amino acids and peptide bonds");
+            else if (aminoAcidsTotal > 0) improvements.push("reviewing amino acid structure and peptide bond formation");
+            
+            if (structureTotal > 0 && structureCorrect / structureTotal >= 0.7) strengths.push("knowledge of protein structure levels");
+            else if (structureTotal > 0) improvements.push("studying the four levels of protein structure");
+            
+            if (functionsTotal > 0 && functionsCorrect / functionsTotal >= 0.7) strengths.push("understanding protein functions");
+            else if (functionsTotal > 0) improvements.push("reviewing the various functions of proteins");
+            
+            if (denaturationTotal > 0 && denaturationCorrect / denaturationTotal >= 0.7) strengths.push("understanding protein denaturation");
+            else if (denaturationTotal > 0) improvements.push("studying factors that cause protein denaturation");
+            
+            // If no specific strengths identified, add generic ones
+            if (strengths.length === 0) {
+                strengths = ["basic understanding of protein concepts"];
+            }
+            
+            // Generate detailed feedback with explanations for incorrect answers
+            let detailedFeedback = "<h3>Question Review</h3>";
+            quizQuestions.forEach((q, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer === q.correct;
+                
+                detailedFeedback += `
+                    <div class="feedback">
+                        <p><strong>Question ${index + 1}:</strong> ${q.question}</p>
+                        <p>Your answer: ${userAnswer !== -1 ? q.options[userAnswer] : "Not answered"} 
+                        ${isCorrect ? '<span style="color:green">✓ Correct</span>' : '<span style="color:red">✗ Incorrect</span>'}</p>
+                        ${!isCorrect ? `<p>Correct answer: ${q.options[q.correct]}</p>` : ''}
+                        <p><strong>Explanation:</strong> ${q.explanation}</p>
+                    </div>
+                `;
+            });
+            
+            resultsContainer.innerHTML = `
+                <h2>Quiz Results</h2>
+                <div class="score">${score}/${quizQuestions.length} (${percentage}%)</div>
+                
+                <div class="feedback">
+                    <h3>Performance Analysis</h3>
+                    <p><span class="strength">Strengths:</span> ${strengths.join(', ')}</p>
+                    <p><span class="improvement">Areas for Improvement:</span> ${improvements.join(', ')}</p>
+                    
+                    <h4>How to Improve:</h4>
+                    <ul>
+                        <li>Review the structure and classification of amino acids</li>
+                        <li>Study the four levels of protein structure with examples</li>
+                        <li>Practice identifying different protein functions</li>
+                        <li>Watch the recommended videos on Proteins</li>
+                    </ul>
+                </div>
+                
+                <p>${percentage >= 80 ? 'Excellent work! You have a strong understanding of Proteins.' : 
+                    percentage >= 60 ? 'Good job! You understand the basics but could benefit from more practice.' : 
+                    'Keep studying! Review the material and try the quiz again to improve your understanding.'}</p>
+                
+                ${detailedFeedback}
+                
+                <button id="retryQuiz" class="btn">Retry Quiz</button>
+            `;
+            
+            document.getElementById('retryQuiz').addEventListener('click', function() {
+                location.reload();
+            });
+            
+            // Scroll to results
+            resultsContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
